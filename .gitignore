@@ -14,3 +14,5 @@ inquiries.json
 
 # Logs
 *.log
+
+skill-lock.json
