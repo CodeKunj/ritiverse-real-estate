@@ -1,0 +1,16 @@
+# Environment & IDE
+.vscode/
+.idea/
+.claude/
+.agents/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# App data & inquiry logs
+inquiries.json
+
+# Logs
+*.log
