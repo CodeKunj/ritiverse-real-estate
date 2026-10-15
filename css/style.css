@@ -1659,7 +1659,20 @@ header.lumera-header.scrolled {
   #footer .absolute.bottom-\[7\%\] {
     position: static !important;
     transform: none !important;
+    translate: none !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
     width: 100% !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+  #footer .absolute.bottom-\[7\%\] p {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
   }
   #footer p {
     font-size: 0.85rem !important;
