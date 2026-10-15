@@ -659,3 +659,1058 @@ header.lumera-header.scrolled {
   cursor: grabbing !important;
   user-select: none !important;
 }
+
+/* ========================================================
+   LUMERA / RITIVERSE MASTER MOBILE RESPONSIVE ENGINE
+   Strictly scoped to <= 1025px (Desktop UI > 1025px is 100% UNTOUCHED)
+   ======================================================== */
+
+@media (max-width: 1025px) {
+
+  /* Global Mobile Resets & Overflow Protection */
+  html, body {
+    overflow-x: clip !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .site-content-wrapper {
+    display: block !important;
+    position: relative !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    background-color: #ffffff !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    overflow-x: clip !important;
+  }
+
+  /* Support for Tailwind breakpoint classes used across HTML templates */
+  .max-\[1025px\]\:hidden { display: none !important; }
+  .max-\[1025px\]\:block { display: block !important; }
+  .max-\[1025px\]\:flex { display: flex !important; }
+  .max-\[1025px\]\:flex-col { flex-direction: column !important; }
+  .max-\[1025px\]\:flex-row { flex-direction: row !important; }
+  .max-\[1025px\]\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+  .max-\[1025px\]\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .max-\[1025px\]\:static { position: static !important; }
+  .max-\[1025px\]\:relative { position: relative !important; }
+  .max-\[1025px\]\:h-auto { height: auto !important; }
+  .max-\[1025px\]\:w-full { width: 100% !important; }
+  .max-\[1025px\]\:w-screen { width: 100vw !important; }
+  .max-\[1025px\]\:min-h-\[110vw\],
+  .max-\[1025px\]\:min-h-\[240vw\] { min-height: auto !important; }
+  .max-\[1025px\]\:order-0 { order: 0 !important; }
+  .max-\[1025px\]\:order-1 { order: 1 !important; }
+  .max-\[1025px\]\:order-2 { order: 2 !important; }
+  .max-\[1025px\]\:order-3 { order: 3 !important; }
+  .max-\[1025px\]\:mx-auto { margin-left: auto !important; margin-right: auto !important; }
+  .max-\[1025px\]\:text-center { text-align: center !important; }
+  .max-\[1025px\]\:items-start { align-items: flex-start !important; }
+  .max-\[1025px\]\:items-center { align-items: center !important; }
+  .max-\[1025px\]\:justify-center { justify-content: center !important; }
+  .max-\[1025px\]\:overflow-x-auto { overflow-x: auto !important; }
+  .max-\[1025px\]\:overflow-visible { overflow: visible !important; }
+  .max-\[1025px\]\:opacity-100 { opacity: 1 !important; }
+  .max-\[1025px\]\:rounded-\[4vw\] { border-radius: 1.25rem !important; }
+  .max-\[1025px\]\:rounded-\[2\.5vw\] { border-radius: 1rem !important; }
+  .max-\[1025px\]\:rounded-\[2vw\] { border-radius: 0.85rem !important; }
+
+  /* 1. HEADER & NAVIGATION */
+  header.lumera-header {
+    padding: 1rem 5% !important;
+    background: rgba(28, 27, 26, 0.85) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  header.lumera-header .w-44 {
+    width: 140px !important;
+  }
+  header nav.max-\[1025px\]\:hidden,
+  header div.max-\[1025px\]\:hidden {
+    display: none !important;
+  }
+  header button[aria-label="Open navigation menu"] {
+    display: flex !important;
+    width: 44px !important;
+    height: 44px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    background: transparent !important;
+  }
+  header button[aria-label="Open navigation menu"] > span {
+    width: 26px !important;
+    height: 16px !important;
+    display: block !important;
+    position: relative !important;
+  }
+  header button[aria-label="Open navigation menu"] span span {
+    height: 2px !important;
+    background-color: #ffffff !important;
+    border-radius: 2px !important;
+    transition: transform 0.35s ease, top 0.35s ease !important;
+  }
+  header button[aria-label="Open navigation menu"][aria-expanded="true"] span span:first-child {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
+  header button[aria-label="Open navigation menu"][aria-expanded="true"] span span:last-child {
+    top: 50% !important;
+    transform: translateY(-50%) rotate(-45deg) !important;
+  }
+
+  /* Full Screen Mobile Navigation Drawer */
+  #mobileNavDrawer {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    background: #1c1b1a !important;
+    z-index: 55 !important;
+    padding: 6.5rem 6% 3rem !important;
+    transform: translateY(-100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  #mobileNavDrawer.translate-y-0,
+  #mobileNavDrawer.is-open {
+    display: block !important;
+    transform: translateY(0) !important;
+  }
+  #mobileNavDrawer.hidden {
+    display: none !important;
+  }
+  #mobileNavDrawer nav {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  #mobileNavDrawer nav .flex-col {
+    gap: 1.5rem !important;
+  }
+  #mobileNavDrawer nav .flex-col a span[data-text] {
+    font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+  }
+  #mobileNavDrawer a.rounded-full {
+    height: 52px !important;
+    border-radius: 9999px !important;
+    background: #ffffff !important;
+    border: 1px solid #ca8216 !important;
+    color: #1c1b1a !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+  }
+  #mobileNavDrawer a.rounded-full span[data-text] {
+    font-size: 1rem !important;
+    color: #1c1b1a !important;
+    font-weight: 600 !important;
+  }
+
+  /* 2. HERO SECTION */
+  #hero {
+    min-height: auto !important;
+    overflow: hidden !important;
+  }
+  #hero > div:first-child {
+    min-height: auto !important;
+    height: auto !important;
+    width: 100% !important;
+    padding: 7rem 5% 3.5rem !important;
+    gap: 3.5rem !important;
+  }
+  #hero h1 {
+    font-size: clamp(2.3rem, 8vw, 3.8rem) !important;
+    line-height: 1.05 !important;
+    gap: 0.5rem !important;
+  }
+  #hero h1 > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+  #hero h1 a[aria-label="Scroll to about section"] {
+    width: 48px !important;
+    height: 48px !important;
+    align-self: flex-start !important;
+    margin-top: 0.5rem !important;
+  }
+  #hero h1 a[aria-label="Scroll to about section"] img {
+    height: 20px !important;
+    width: auto !important;
+  }
+  #hero .min-h-screen {
+    min-height: auto !important;
+    padding-bottom: 2rem !important;
+    gap: 2.5rem !important;
+  }
+  #hero .w-\[38vw\] {
+    width: 100% !important;
+  }
+  #hero .w-\[38vw\] p {
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+  }
+  #hero a[data-pressed] {
+    --button-height: 52px !important;
+    --icon-circle: 38px !important;
+    --icon-right: 7px !important;
+    height: 52px !important;
+    font-size: 0.95rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 3.75rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+  #hero a[data-pressed] svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  #hero .flex.items-center:has(a[data-pressed]) {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+  #hero div:has(> a[data-pressed]),
+  #hero .flex.items-center:has(a[data-pressed]) > div {
+    width: 100% !important;
+  }
+  #hero .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+  #hero .grid-cols-4 > div {
+    min-height: 110px !important;
+    padding: 1.25rem 1rem !important;
+    border-radius: 1rem !important;
+  }
+  #hero .grid-cols-4 p:first-child {
+    font-size: 1.65rem !important;
+  }
+  #hero .grid-cols-4 p:first-child span:last-child {
+    font-size: 0.85rem !important;
+  }
+  #hero .grid-cols-4 p:last-child {
+    font-size: 0.85rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* 3. ABOUT SECTION */
+  #about {
+    height: auto !important;
+    padding: 4.5rem 0 !important;
+  }
+  #about > div {
+    padding: 0 !important;
+  }
+  #about .flex.justify-between {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  #about h2 {
+    font-size: clamp(2rem, 7vw, 3rem) !important;
+    line-height: 1.15 !important;
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+  #about .w-\[50\%\], #about .w-\[40\%\] {
+    width: 100% !important;
+  }
+  #about .w-\[40\%\] p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+  #about .h-\[30vw\] {
+    height: 54vw !important;
+    min-height: 280px !important;
+  }
+  #about #aboutPrevBtn,
+  #about #aboutNextBtn {
+    width: 46px !important;
+    height: 46px !important;
+    bottom: -65px !important;
+  }
+  #about #aboutPrevBtn {
+    left: calc(50% - 32px) !important;
+  }
+  #about #aboutNextBtn {
+    left: calc(50% + 32px) !important;
+  }
+  #about #aboutTextWrapper {
+    margin-top: 75px !important;
+    max-width: 90% !important;
+    width: 100% !important;
+  }
+  #aboutActiveTitle {
+    font-size: 1.35rem !important;
+  }
+  #aboutActiveDesc {
+    font-size: 0.92rem !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+  }
+
+  /* 4. FEATURES & SIGNATURE RESIDENCES */
+  #lumera-features {
+    height: auto !important;
+    overflow: visible !important;
+    padding-bottom: 3.5rem !important;
+  }
+  #lumera-features > .sticky {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  #lumera-features .absolute.top-\[3vw\] {
+    display: none !important;
+  }
+  .lumera-residence-track {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    gap: 3.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  #lumera-residences-_R_8tavb_-textfill {
+    height: auto !important;
+    width: 100% !important;
+    padding: 3.5rem 1.25rem !important;
+    flex-none: unset !important;
+  }
+  #lumera-residences-_R_8tavb_-textfill h2 {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .lumera-residence-card {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 5% !important;
+    flex-none: unset !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+  .lumera-residence-card > div:first-child {
+    width: 100% !important;
+    height: 56vw !important;
+    min-height: 250px !important;
+    max-height: 420px !important;
+    border-radius: 1.25rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  }
+  .lumera-residence-card > div:nth-child(2) {
+    width: 100% !important;
+    padding: 1.5rem 0 0 !important;
+  }
+  .lumera-residence-number {
+    font-size: 2.2rem !important;
+    color: #ca8216 !important;
+  }
+  .lumera-residence-title {
+    font-size: clamp(1.4rem, 5vw, 1.85rem) !important;
+    line-height: 1.2 !important;
+    margin-top: 0.35rem !important;
+  }
+  .lumera-residence-copy {
+    max-width: 100% !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-top: 0.85rem !important;
+  }
+  .lumera-residence-card .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    margin-top: 1.25rem !important;
+  }
+  .lumera-residence-stat {
+    width: 100% !important;
+    padding: 0.5rem 0 !important;
+  }
+  .lumera-residence-stat p:first-child {
+    font-size: 1.15rem !important;
+  }
+  .lumera-residence-stat p:last-child {
+    font-size: 0.82rem !important;
+    margin-top: 0.2rem !important;
+  }
+  .lumera-residence-stat span.bg-\[\#DADADA\] {
+    display: none !important;
+  }
+  .lumera-residence-card .flex.gap-\[1vw\],
+  .lumera-residence-card .flex.max-md\:flex-gap {
+    gap: 0.75rem !important;
+  }
+  .lumera-residence-card .h-\[6\.2vw\].w-\[6\.2vw\] {
+    width: 58px !important;
+    height: 58px !important;
+    border-radius: 0.75rem !important;
+  }
+  .lumera-residence-cta {
+    margin-top: 0.75rem !important;
+    padding-top: 0.5rem !important;
+  }
+  .lumera-residence-cta span[data-text] {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+  }
+
+  /* 5. SERVICES & MARQUEE */
+  #services {
+    width: 100% !important;
+    padding: 4rem 0 !important;
+    overflow: hidden !important;
+  }
+  #services > div {
+    padding: 0 !important;
+    gap: 2rem !important;
+  }
+  .lumera-marquee a {
+    height: 48px !important;
+    min-width: 220px !important;
+    padding: 0 1.25rem !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+  #servicesSliderTrack {
+    display: flex !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding: 0 5% !important;
+    margin-top: 1.5rem !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  #servicesSliderTrack > .flex {
+    display: flex !important;
+    width: max-content !important;
+    gap: 1rem !important;
+    aspect-ratio: auto !important;
+  }
+  .service-stripe {
+    width: 78vw !important;
+    min-width: 280px !important;
+    max-width: 360px !important;
+    height: 380px !important;
+    border-radius: 1.25rem !important;
+    flex-shrink: 0 !important;
+    padding: 1.25rem !important;
+  }
+  .service-stripe:hover {
+    width: 78vw !important;
+  }
+  .stripe-label {
+    max-width: 85% !important;
+    padding: 0.6rem 1rem !important;
+  }
+  .stripe-label p {
+    font-size: 0.9rem !important;
+  }
+  #servicesProgressBar {
+    height: 100% !important;
+  }
+  #services .relative.mt-\[3vw\].mx-\[5\%\] {
+    display: block !important;
+    margin: 1.5rem 5% 0 !important;
+    height: 4px !important;
+  }
+
+  /* 6. ARCHITECTURE / WORKS */
+  #works {
+    padding: 4.5rem 5% !important;
+    overflow: hidden !important;
+  }
+  #works .works-sticky-bg {
+    display: none !important;
+  }
+  #works > div {
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  #works h2 {
+    font-size: clamp(1.4rem, 5vw, 1.95rem) !important;
+    line-height: 1.35 !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+  #works .mt-\[10vw\] {
+    margin-top: 2.5rem !important;
+  }
+  #works .flex.w-full.h-full.justify-between {
+    flex-direction: column !important;
+    gap: 3rem !important;
+  }
+  #works .w-\[40vw\],
+  #works .w-\[25vw\],
+  #works .w-\[47vw\],
+  #works .w-\[30vw\] {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+  }
+  #works .h-\[27vw\],
+  #works .h-\[35vw\] {
+    width: 100% !important;
+    height: 58vw !important;
+    min-height: 240px !important;
+    max-height: 380px !important;
+    border-radius: 1.25rem !important;
+    padding: 1.25rem !important;
+    position: relative !important;
+  }
+  #works .p-\[1vw\],
+  #works .p-\[1\.5vw\] {
+    padding: 1.25rem !important;
+  }
+  #works div[class*="rounded-\[0\.8vw\]"] {
+    height: auto !important;
+    min-height: 38px !important;
+    padding: 0.6rem 1rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 0.95rem !important;
+  }
+  #works div[class*="rounded-\[0\.8vw\]"]:hover {
+    height: auto !important;
+  }
+  #works div[class*="rounded-\[0\.8vw\]"] .w-full.h-full.flex-col {
+    display: none !important;
+  }
+  #works p.text-white\/90 {
+    width: 100% !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-top: 1rem !important;
+  }
+  #works .mt-\[30vh\],
+  #works .mt-\[15vh\] {
+    margin-top: 3rem !important;
+  }
+  #works .ml-\[3\%\] {
+    margin-left: 0 !important;
+  }
+
+  /* 7. PROJECT REFINEMENT */
+  #project {
+    width: 100% !important;
+    padding: 4rem 0 !important;
+  }
+  #project > div:first-child {
+    padding: 0 5% !important;
+  }
+  #project h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+  }
+  #project .lineDraw {
+    margin: 1.5rem 0 !important;
+  }
+  #project .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 0 !important;
+    margin-bottom: 2rem !important;
+  }
+  #project a[data-pressed] {
+    --button-height: 50px !important;
+    --icon-circle: 36px !important;
+    --icon-right: 7px !important;
+    height: 50px !important;
+    font-size: 0.95rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 3.5rem !important;
+  }
+  #project p[data-para-anim] {
+    max-width: 100% !important;
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+  }
+  #projectSliderTrack {
+    padding: 0 5% !important;
+    gap: 1rem !important;
+  }
+  #projectSliderTrack > div > div {
+    width: 78vw !important;
+    max-width: 340px !important;
+    height: 52vw !important;
+    min-height: 220px !important;
+    border-radius: 1.25rem !important;
+  }
+  #project .relative.mt-\[3\.6vw\] {
+    margin: 1.5rem 5% 0 !important;
+    width: calc(100% - 10%) !important;
+    height: 4px !important;
+  }
+
+  /* 8. SHOWCASE / AMENITIES */
+  #showcase {
+    padding: 4rem 5% !important;
+    overflow: hidden !important;
+  }
+  #showcase > div {
+    padding: 0 !important;
+  }
+  #showcase .flex.w-full {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  #showcase h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+    line-height: 1.15 !important;
+    width: 100% !important;
+  }
+  #showcase .video-block {
+    position: static !important;
+    width: 100% !important;
+    height: 55vw !important;
+    min-height: 240px !important;
+    border-radius: 1.25rem !important;
+    margin-top: 1rem !important;
+    transform: none !important;
+  }
+  #showcase .inner-detail {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    margin-top: 1rem !important;
+    border-radius: 1rem !important;
+    padding: 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    background: rgba(28, 27, 26, 0.9) !important;
+  }
+  #showcase .inner-detail > p {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #ca8216 !important;
+  }
+  #showcase .inner-detail > div {
+    flex-wrap: wrap !important;
+    gap: 0.5rem 1rem !important;
+  }
+  #showcase .inner-detail p {
+    font-size: 0.85rem !important;
+  }
+  #showcase .inner-detail span {
+    display: none !important;
+  }
+  #showcase .mt-\[48vw\] {
+    margin-top: 2rem !important;
+  }
+  #showcase .mt-\[48vw\] > div {
+    width: 100% !important;
+  }
+  #showcase .mt-\[48vw\] p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 9. CORE FEATURES */
+  section:has(.core-feature-item) {
+    padding: 4rem 5% !important;
+  }
+  section:has(.core-feature-item) > div {
+    padding: 0 !important;
+  }
+  section:has(.core-feature-item) h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+  }
+  section:has(.core-feature-item) p[data-para-anim] {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    width: 100% !important;
+  }
+  section:has(.core-feature-item) .flex.items-start.justify-between {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    margin-top: 2rem !important;
+  }
+  section:has(.core-feature-item) .w-\[33\%\] {
+    order: 1 !important;
+    width: 100% !important;
+    height: 60vw !important;
+    min-height: 250px !important;
+    max-height: 380px !important;
+    margin-bottom: 1rem !important;
+  }
+  section:has(.core-feature-item) .w-\[27\%\]:first-of-type {
+    order: 2 !important;
+    width: 100% !important;
+  }
+  section:has(.core-feature-item) .w-\[27\%\]:last-of-type {
+    order: 3 !important;
+    width: 100% !important;
+  }
+  .core-feature-item .fadeup {
+    padding-bottom: 0.85rem !important;
+    gap: 1rem !important;
+  }
+  .core-feature-item h4 {
+    font-size: 1rem !important;
+  }
+  .core-feature-item .h-\[2\.6vw\] {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  /* 10. BRINGING SECTION */
+  #bringing-desktop {
+    display: none !important;
+  }
+  .bringing-desc {
+    display: none !important;
+  }
+  #bringing {
+    display: block !important;
+    padding: 4.5rem 5% !important;
+  }
+  #bringing > div {
+    padding: 0 !important;
+  }
+  #bringing p.font-heading {
+    font-size: clamp(2rem, 7.5vw, 3rem) !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+  }
+  #bringing .w-\[90vw\] {
+    width: 100% !important;
+    height: 56vw !important;
+    min-height: 230px !important;
+    border-radius: 1.25rem !important;
+    margin: 1.5rem 0 !important;
+  }
+  #bringing p.font-body {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+  #bringing a[data-pressed] {
+    --button-height: 50px !important;
+    --icon-circle: 36px !important;
+    --icon-right: 7px !important;
+    height: 50px !important;
+    font-size: 0.95rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 3.5rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 1rem auto 0 !important;
+  }
+
+  /* 11. EXPERIENCE SECTION */
+  section:has(#p1) {
+    padding: 4.5rem 5% !important;
+  }
+  section:has(#p1) > div {
+    padding: 0 !important;
+  }
+  section:has(#p1) .w-\[90\%\] {
+    width: 100% !important;
+  }
+  #p1 p, #p2 p, #p3 p {
+    font-size: clamp(1.35rem, 5vw, 2rem) !important;
+    line-height: 1.2 !important;
+    transform: none !important;
+  }
+  #p1 p span, #p2 p span, #p3 p:first-child {
+    font-size: clamp(1.8rem, 7vw, 2.6rem) !important;
+    color: #ca8216 !important;
+  }
+  #p1 .w-\[6vw\], #p2 .w-\[6vw\], #p3 .w-\[12vw\] {
+    display: none !important;
+  }
+  section:has(#p1) span[data-line-draw] {
+    margin: 1.5rem 0 !important;
+  }
+  #p2 .flex, #p3 .flex {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* 12. FAQ SECTION */
+  #faq {
+    padding: 4.5rem 5% !important;
+  }
+  #faq > div {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  #faq h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+    margin-bottom: 2rem !important;
+  }
+  #faq .faq-item {
+    border-radius: 1rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+  #faq .faq-item > div:nth-child(2) {
+    padding: 1.2rem 1.25rem !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+    gap: 0.75rem !important;
+  }
+  #faq .faq-item .shrink-0 {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  #faq .faq-item div[role="region"] > div {
+    width: 100% !important;
+    padding: 0 1.25rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* 13. HIGHLIGHTS SECTION */
+  #highlights {
+    padding: 4rem 0 !important;
+    gap: 1.5rem !important;
+  }
+  #highlights > div:first-child {
+    padding: 0 5% !important;
+  }
+  #highlights h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+  }
+  #highlightsSliderTrack {
+    padding: 0 5% 1rem !important;
+    gap: 1rem !important;
+  }
+  #highlightsSliderTrack > div > div {
+    width: 78vw !important;
+    max-width: 320px !important;
+    height: 55vw !important;
+    min-height: 240px !important;
+    border-radius: 1.25rem !important;
+  }
+  #highlights .bottom-4 {
+    padding: 1.25rem !important;
+    bottom: 0 !important;
+  }
+  #highlights .bottom-4 p:first-child {
+    font-size: 0.85rem !important;
+  }
+  #highlights .bottom-4 p:last-child {
+    font-size: 1.25rem !important;
+    line-height: 1.15 !important;
+  }
+  #highlights .relative.mt-\[3\.6vw\] {
+    margin: 1rem 5% 0 !important;
+    width: calc(100% - 10%) !important;
+    height: 4px !important;
+  }
+
+  /* 14. ROI SECTION */
+  #roi {
+    padding: 4.5rem 5% !important;
+  }
+  #roi > div {
+    padding: 0 !important;
+    gap: 2.5rem !important;
+  }
+  #roi .flex.justify-between {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  #roi h2 {
+    font-size: clamp(2rem, 7vw, 2.75rem) !important;
+  }
+  #roi p[data-para-anim] {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    width: 100% !important;
+  }
+  #roi .flex.flex-wrap {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  #roi .flex.flex-wrap > div {
+    width: 100% !important;
+    padding: 1.5rem 1rem !important;
+    border-radius: 1rem !important;
+  }
+  #roi .flex.flex-wrap p:first-child {
+    font-size: 1.5rem !important;
+  }
+  #roi .flex.flex-wrap p:first-child span:last-child {
+    font-size: 0.9rem !important;
+  }
+  #roi .flex.flex-wrap p:last-child {
+    font-size: 0.85rem !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* 15. CTA SECTION */
+  #cta {
+    padding: 3.5rem 5% !important;
+  }
+  #cta > div {
+    border-radius: 1.5rem !important;
+  }
+  #cta .flex.flex-col.items-center {
+    padding: 3rem 1.25rem 1.5rem !important;
+    gap: 1.5rem !important;
+  }
+  #cta h2 {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+    max-width: 100% !important;
+  }
+  #cta div[data-copy-wrapper="true"]:nth-child(2) {
+    width: 100% !important;
+  }
+  #cta div[data-copy-wrapper="true"]:nth-child(2) p {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+  #cta .mt-\[1vw\].flex {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+    margin-top: 1rem !important;
+  }
+  #cta a[data-pressed] {
+    --button-height: 50px !important;
+    --icon-circle: 36px !important;
+    --icon-right: 7px !important;
+    height: 50px !important;
+    font-size: 0.95rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 3.5rem !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+  #cta .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    padding: 1rem 1.25rem 1.5rem !important;
+    margin-top: 1rem !important;
+  }
+  #cta .grid-cols-4 > div {
+    border-radius: 1rem !important;
+  }
+
+  /* 16. FOOTER SECTION */
+  #footer {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    padding: 4rem 5% 2.5rem !important;
+    z-index: 20 !important;
+  }
+  #footer > div {
+    padding: 0 !important;
+  }
+  #footer .relative.mb-\[7vw\] {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    margin-bottom: 2.5rem !important;
+  }
+  #footer .absolute.top-1\/2.left-1\/2 {
+    position: static !important;
+    transform: none !important;
+    margin-bottom: 0 !important;
+    width: 160px !important;
+  }
+  #footer .size-\[2\.7vw\],
+  #footer a[aria-label] > div {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 10px !important;
+  }
+  #footer .flex.flex-col.items-center.justify-center.gap-3 {
+    gap: 1rem !important;
+  }
+  #footer a[href^="tel:"] span[data-text] {
+    font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
+  }
+  #footer a[href^="mailto:"] span[data-text] {
+    font-size: clamp(1.15rem, 4.5vw, 1.7rem) !important;
+    word-break: break-all !important;
+  }
+  #footer .fadeup.flex.items-center.justify-between.pt-\[7vw\] {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    padding-top: 2.5rem !important;
+    text-align: center !important;
+  }
+  #footer .absolute.bottom-\[7\%\] {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+  #footer p {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 17. PRELOADER */
+  #preloader img {
+    width: 220px !important;
+    max-width: 65vw !important;
+  }
+}
+
+/* ========================================================
+   SMALL MOBILE PHONES (<= 640px & <= 480px)
+   ======================================================== */
+@media (max-width: 640px) {
+  .lumera-modal-backdrop {
+    padding: 1rem !important;
+  }
+  .lumera-modal-box {
+    padding: 1.75rem 1.25rem !important;
+    border-radius: 1.25rem !important;
+    max-height: 92vh !important;
+  }
+  .lumera-modal-box h3 {
+    font-size: 1.4rem !important;
+  }
+  .lumera-input {
+    font-size: 16px !important;
+    padding: 0.75rem 1rem !important;
+  }
+  #hero a[data-pressed] {
+    max-width: 100% !important;
+  }
+  #about .h-\[30vw\] {
+    height: 76vw !important;
+    min-height: 310px !important;
+  }
+  .about-circle-slide {
+    width: 62vw !important;
+    height: 62vw !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero .grid-cols-4 p:first-child {
+    font-size: 1.4rem !important;
+  }
+  #roi .flex.flex-wrap p:first-child {
+    font-size: 1.3rem !important;
+  }
+}
+

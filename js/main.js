@@ -85,12 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Mobile Navigation Drawer Toggle
   const burgerBtn = document.querySelector('button[aria-label="Open navigation menu"]');
-  const mobileDrawer = document.querySelector('header .fixed.inset-0');
+  const mobileDrawer = document.getElementById('mobileNavDrawer') || document.querySelector('header .fixed.inset-0');
   if (burgerBtn && mobileDrawer) {
     let isOpen = false;
     burgerBtn.addEventListener('click', () => {
       isOpen = !isOpen;
-      burgerBtn.setAttribute('aria-expanded', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       if (isOpen) {
         mobileDrawer.classList.remove('-translate-y-full', 'hidden');
         mobileDrawer.classList.add('translate-y-0', 'block');
@@ -174,8 +174,12 @@ function initFooterReveal() {
 
   let resizeTimer;
   const updateFooterSpace = () => {
-    if (footer && siteWrapper) {
-      siteWrapper.style.marginBottom = `${footer.offsetHeight}px`;
+    if (window.innerWidth <= 1025) {
+      siteWrapper.style.marginBottom = '0px';
+    } else {
+      if (footer && siteWrapper) {
+        siteWrapper.style.marginBottom = `${footer.offsetHeight}px`;
+      }
     }
   };
 

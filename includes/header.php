@@ -72,7 +72,7 @@ global $config;
   </div>
 
   <!-- Mobile Drawer -->
-  <div class="fixed inset-0 z-50 hidden h-dvh bg-[#1c1b1a] px-[5%] pb-[5vw] pt-[28vw] transition-transform duration-500 max-[1025px]:block max-md:py-[34vw]">
+  <div id="mobileNavDrawer" class="fixed inset-0 z-50 hidden -translate-y-full h-dvh bg-[#1c1b1a] px-[5%] pb-[5vw] pt-[28vw] transition-transform duration-500 max-[1025px]:block max-md:py-[34vw]">
     <nav class="flex h-full flex-col justify-between">
       <div class="flex flex-col gap-[5vw]">
         <a class="inline-flex items-center gap-2 no-underline text-white" href="#about">
