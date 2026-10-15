@@ -44,7 +44,7 @@
                   <p class="tracking-tight text-[1vw] text-[#1C1B1A] font-medium">792 x 530</p>
                 </div>
                 <div>
-                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="#">
+                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="gallery.php">
                     <span class="relative z-1">View Gallery</span>
                   </a>
                 </div>
@@ -74,7 +74,7 @@
                   <p class="tracking-tight text-[1vw] text-[#1C1B1A] font-medium">493 x 686</p>
                 </div>
                 <div>
-                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="#">
+                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="gallery.php">
                     <span class="relative z-1">View Gallery</span>
                   </a>
                 </div>
@@ -99,7 +99,7 @@
                 <p class="tracking-tight text-[1vw] text-[#1C1B1A] font-medium">880 x 627</p>
               </div>
               <div>
-                <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="#">
+                <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="gallery.php">
                   <span class="relative z-1">View Gallery</span>
                 </a>
               </div>
@@ -151,7 +151,7 @@
                   <p class="tracking-tight text-[1vw] text-[#1C1B1A] font-medium">493 x 686</p>
                 </div>
                 <div>
-                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="#">
+                  <a class="group/animated-fill relative inline-flex items-center justify-center overflow-hidden rounded-full px-[1.2vw] pr-[2.6vw] font-medium text-[0.85vw] bg-white text-[#1c1b1a] border border-[#1c1b1a]/20 h-[2.4vw] max-[1025px]:h-[4vw] max-[1025px]:text-[1.5vw] max-md:h-[8vw] max-md:text-[3vw]" href="gallery.php">
                     <span class="relative z-1">View Gallery</span>
                   </a>
                 </div>

@@ -76,6 +76,19 @@ global $config;
       </div>
     </div>
 
+    <!-- Secondary Gallery & Advisory Links -->
+    <div class="mt-[1.5vw] flex items-center justify-center gap-[2vw] max-md:mt-[4vw] max-md:gap-[5vw] max-[1025px]:mt-[3vw] max-[1025px]:gap-[4vw]">
+      <a class="inline-flex items-center gap-1.5 no-underline transition-colors duration-300 text-[#1C1B1A]/80 hover:text-[#ca8216] text-[1.1vw] max-md:text-[3.8vw] max-[1025px]:text-[2.4vw] font-medium" href="gallery.php">
+        <span>Architectural Gallery</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+      <span class="text-[#1C1B1A]/30 text-[1.1vw] max-md:text-[3.8vw]">•</span>
+      <a class="inline-flex items-center gap-1.5 no-underline transition-colors duration-300 text-[#1C1B1A]/80 hover:text-[#ca8216] text-[1.1vw] max-md:text-[3.8vw] max-[1025px]:text-[2.4vw] font-medium" href="contact.php">
+        <span>Private Client Advisory</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+
     <!-- Bottom Metadata: Copyright, Centered Address & Privacy Policy -->
     <div class="flex items-center justify-between pt-[7vw] max-md:gap-[5vw] max-[1025px]:flex-col max-[1025px]:gap-[3vw]">
       <!-- Copyright -->
