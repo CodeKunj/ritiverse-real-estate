@@ -5,6 +5,9 @@ $currentScript = basename($_SERVER['PHP_SELF'] ?? 'index.php');
 $isIndex = ($currentScript === 'index.php' || $currentScript === '' || $currentScript === 'index');
 $isGallery = ($currentScript === 'gallery.php');
 $isContact = ($currentScript === 'contact.php');
+
+$prefix = $isIndex ? '' : 'index.php';
+
 $headerClass = $isIndex 
     ? "lumera-header fixed inset-x-0 top-0 z-50 px-[5%] pt-[1vw] pb-[1vw] transform transition-all ease-in-out duration-500 max-[1025px]:px-[5%] max-[1025px]:py-[4%]" 
     : "lumera-header fixed inset-x-0 top-0 z-50 px-[5%] pt-[1vw] pb-[1vw] transform transition-all ease-in-out duration-500 max-[1025px]:px-[5%] max-[1025px]:py-[4%] bg-[#141312]/95 backdrop-blur-md border-b border-white/10";
@@ -18,10 +21,9 @@ $headerClass = $isIndex
       </div>
     </a>
 
-    <!-- Desktop Navigation -->
-    <?php if ($isIndex): ?>
+    <!-- Desktop Navigation (Identical Menus Across All Pages) -->
     <nav class="flex items-center gap-[3vw] max-[1025px]:hidden">
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="#about">
+      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="<?= $prefix ?>#about">
         <div class="mt-[0.3vw]">
           <span class="inline-block relative w-fit">
             <span data-text="About" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">About</span>
@@ -29,7 +31,7 @@ $headerClass = $isIndex
           </span>
         </div>
       </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="#lumera-features">
+      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="<?= $prefix ?>#lumera-features">
         <div class="mt-[0.3vw]">
           <span class="inline-block relative w-fit">
             <span data-text="Features" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Features</span>
@@ -37,43 +39,7 @@ $headerClass = $isIndex
           </span>
         </div>
       </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="#project">
-        <div class="mt-[0.3vw]">
-          <span class="inline-block relative w-fit">
-            <span data-text="Properties" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Properties</span>
-            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
-          </span>
-        </div>
-      </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="gallery.php">
-        <div class="mt-[0.3vw]">
-          <span class="inline-block relative w-fit">
-            <span data-text="Gallery" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Gallery</span>
-            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
-          </span>
-        </div>
-      </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="#highlights">
-        <div class="mt-[0.3vw]">
-          <span class="inline-block relative w-fit">
-            <span data-text="Locations" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Locations</span>
-            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
-          </span>
-        </div>
-      </a>
-    </nav>
-    <?php else: ?>
-    <!-- Subpages Desktop Navigation -->
-    <nav class="flex items-center gap-[3vw] max-[1025px]:hidden">
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="index.php">
-        <div class="mt-[0.3vw]">
-          <span class="inline-block relative w-fit">
-            <span data-text="Home" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Home</span>
-            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
-          </span>
-        </div>
-      </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="index.php#project">
+      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="<?= $prefix ?>#project">
         <div class="mt-[0.3vw]">
           <span class="inline-block relative w-fit">
             <span data-text="Properties" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Properties</span>
@@ -85,36 +51,22 @@ $headerClass = $isIndex
         <div class="mt-[0.3vw]">
           <span class="inline-block relative w-fit">
             <span data-text="Gallery" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Gallery</span>
-            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
+            <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:<?= $isGallery ? 'scaleX(1)' : 'scaleX(0)' ?>;transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
           </span>
         </div>
       </a>
-      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] <?= $isContact ? 'text-[#ca8216]' : 'text-white/90 hover:text-white' ?>" href="contact.php">
+      <a class="inline-flex items-center gap-2 no-underline transition-colors duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] text-white/90 hover:text-white" href="<?= $prefix ?>#highlights">
         <div class="mt-[0.3vw]">
           <span class="inline-block relative w-fit">
-            <span data-text="Contact" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Contact</span>
+            <span data-text="Locations" class="overflow-hidden relative inline-block leading-[1.2] font-body text-[1.15vw] tracking-wide">Locations</span>
             <span aria-hidden="true" class="absolute left-0 w-full bg-current" style="bottom:15%;height:1px;transform:scaleX(0);transform-origin:left center;transition:transform 0.5s cubic-bezier(0.625, 0.05, 0, 1)"></span>
           </span>
         </div>
       </a>
     </nav>
-    <?php endif; ?>
 
-    <!-- Enquire CTA Button -->
+    <!-- Enquire CTA Button (Identical Across All Pages) -->
     <div class="max-[1025px]:hidden">
-      <?php if ($isContact): ?>
-      <a data-pressed="false" class="group/animated-fill relative inline-flex h-(--button-height) w-fit min-w-fit max-w-none cursor-pointer items-center justify-center overflow-hidden rounded-full px-[1.5vw] pr-[calc(var(--icon-circle)+var(--icon-right)+2vw)] whitespace-nowrap font-medium text-[1.15vw] leading-none [text-rendering:geometricPrecision] [--button-height:3.65vw] [--icon-circle:2.3vw] [--icon-right:0.55vw] [--circle-inset-y:calc((100%-var(--icon-circle))/2)] bg-(--btn-bg) text-(--btn-text) min-w-0! w-56" style="--btn-bg:#CA8216;--btn-text:#ffffff;--btn-border:transparent;--btn-fill-bg:#ffffff;--btn-fill-text:#1c1b1a;--btn-fill-bg-hover:#ffffff;--btn-fill-text-hover:#1c1b1a;--btn-arrow:#1c1b1a;--btn-arrow-hover:#1c1b1a;--btn-arrow-size:1.3vw;--btn-duration:0.45s;visibility:visible" href="tel:+912269854100">
-        <span class="relative z-1 pb-px">+91 (022) 6985 4100</span>
-        <div aria-hidden="true" class="pointer-events-none absolute z-2 rounded-full bg-(--btn-fill-bg) inset-[var(--circle-inset-y)_var(--icon-right)_var(--circle-inset-y)_calc(100%-var(--icon-right)-var(--icon-circle))]"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-2 flex items-center px-[1.5vw] pr-[calc(var(--icon-circle)+var(--icon-right)+2vw)] text-(--btn-fill-text) [clip-path:inset(var(--circle-inset-y)_var(--icon-right)_var(--circle-inset-y)_calc(100%-var(--icon-right)-var(--icon-circle)))]">
-          <span class="relative z-1 pb-px whitespace-nowrap">+91 (022) 6985 4100</span>
-        </div>
-        <span class="pointer-events-none absolute right-(--icon-right) top-1/2 z-3 inline-flex h-(--icon-circle) w-(--icon-circle) shrink-0 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full bg-white text-[#1c1b1a]" style="-webkit-mask-image:-webkit-radial-gradient(white, black);mask-image:radial-gradient(white, black)" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right absolute left-1/2 top-1/2 size-(--btn-arrow-size) translate-x-[-170%] -translate-y-1/2 origin-center scale-0 text-current" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right absolute left-1/2 top-1/2 size-(--btn-arrow-size) -translate-x-1/2 -translate-y-1/2 origin-center text-current" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-        </span>
-      </a>
-      <?php else: ?>
       <a data-pressed="false" class="group/animated-fill relative inline-flex h-(--button-height) w-fit min-w-fit max-w-none cursor-pointer items-center justify-center overflow-hidden rounded-full px-[1.5vw] pr-[calc(var(--icon-circle)+var(--icon-right)+2vw)] whitespace-nowrap font-medium text-[1.15vw] leading-none [text-rendering:geometricPrecision] [--button-height:3.65vw] [--icon-circle:2.3vw] [--icon-right:0.55vw] [--circle-inset-y:calc((100%-var(--icon-circle))/2)] bg-(--btn-bg) text-(--btn-text) min-w-0! w-50" style="--btn-bg:#ffffff;--btn-text:#1c1b1a;--btn-border:transparent;--btn-fill-bg:#1c1b1a;--btn-fill-text:#ffffff;--btn-fill-bg-hover:#1c1b1a;--btn-fill-text-hover:#ffffff;--btn-arrow:#ffffff;--btn-arrow-hover:#ffffff;--btn-arrow-size:1.3vw;--btn-duration:0.45s;visibility:visible" href="contact.php">
         <span class="relative z-1 pb-px">Enquire Now</span>
         <div aria-hidden="true" class="pointer-events-none absolute z-2 rounded-full bg-(--btn-fill-bg) inset-[var(--circle-inset-y)_var(--icon-right)_var(--circle-inset-y)_calc(100%-var(--icon-right)-var(--icon-circle))]"></div>
@@ -126,7 +78,6 @@ $headerClass = $isIndex
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right absolute left-1/2 top-1/2 size-(--btn-arrow-size) -translate-x-1/2 -translate-y-1/2 origin-center text-current" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </span>
       </a>
-      <?php endif; ?>
     </div>
 
     <!-- Mobile Hamburger Menu Button -->
@@ -138,26 +89,25 @@ $headerClass = $isIndex
     </button>
   </div>
 
-  <!-- Mobile Drawer -->
+  <!-- Mobile Drawer (Identical Across All Pages) -->
   <div id="mobileNavDrawer" class="fixed inset-0 z-50 hidden -translate-y-full h-dvh bg-[#1c1b1a] px-[5%] pb-[5vw] pt-[28vw] transition-transform duration-500 max-[1025px]:block max-md:py-[34vw]">
     <nav class="flex h-full flex-col justify-between">
       <div class="flex flex-col gap-[5vw]">
-        <?php if ($isIndex): ?>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="#about">
+        <a class="inline-flex items-center gap-2 no-underline text-white" href="<?= $prefix ?>#about">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
               <span data-text="About" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">About</span>
             </span>
           </div>
         </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="#lumera-features">
+        <a class="inline-flex items-center gap-2 no-underline text-white" href="<?= $prefix ?>#lumera-features">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
               <span data-text="Features" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Features</span>
             </span>
           </div>
         </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="#project">
+        <a class="inline-flex items-center gap-2 no-underline text-white" href="<?= $prefix ?>#project">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
               <span data-text="Properties" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Properties</span>
@@ -167,11 +117,11 @@ $headerClass = $isIndex
         <a class="inline-flex items-center gap-2 no-underline text-white" href="gallery.php">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
-              <span data-text="Gallery" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Gallery</span>
+              <span data-text="Gallery" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw] <?= $isGallery ? 'text-[#ca8216]' : '' ?>">Gallery</span>
             </span>
           </div>
         </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="#highlights">
+        <a class="inline-flex items-center gap-2 no-underline text-white" href="<?= $prefix ?>#highlights">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
               <span data-text="Locations" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Locations</span>
@@ -181,40 +131,10 @@ $headerClass = $isIndex
         <a class="inline-flex items-center gap-2 no-underline text-white" href="contact.php">
           <div class="mt-[0.3vw]">
             <span class="inline-block relative w-fit">
-              <span data-text="Contact Advisory" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Contact Advisory</span>
+              <span data-text="Contact Advisory" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw] <?= $isContact ? 'text-[#ca8216]' : '' ?>">Contact Advisory</span>
             </span>
           </div>
         </a>
-        <?php else: ?>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="index.php">
-          <div class="mt-[0.3vw]">
-            <span class="inline-block relative w-fit">
-              <span data-text="Home" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Home</span>
-            </span>
-          </div>
-        </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="index.php#project">
-          <div class="mt-[0.3vw]">
-            <span class="inline-block relative w-fit">
-              <span data-text="Properties" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Properties</span>
-            </span>
-          </div>
-        </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="gallery.php">
-          <div class="mt-[0.3vw]">
-            <span class="inline-block relative w-fit">
-              <span data-text="Gallery" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Gallery</span>
-            </span>
-          </div>
-        </a>
-        <a class="inline-flex items-center gap-2 no-underline text-white" href="contact.php">
-          <div class="mt-[0.3vw]">
-            <span class="inline-block relative w-fit">
-              <span data-text="Contact Advisory" class="overflow-hidden relative inline-block leading-[1.2] font-heading text-[9vw] font-medium leading-none max-md:text-[7vw]">Contact Advisory</span>
-            </span>
-          </div>
-        </a>
-        <?php endif; ?>
       </div>
       <a class="inline-flex items-center gap-2 no-underline h-[11vw] w-full justify-center rounded-full border border-[#ca8216] bg-white px-[6vw] text-[#1c1b1a] max-md:h-[15vw]" href="contact.php">
         <div class="mt-[0.3vw]">
