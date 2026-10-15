@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 14. Smooth scrolling for hash anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       if (href && href !== '#' && href.startsWith('#')) {
         const target = document.querySelector(href);
@@ -259,10 +259,10 @@ function initAboutCarousel() {
 
   function render(animated = true) {
     const isMobile = window.innerWidth <= 1024;
-    
+
     slides.forEach((slide) => {
       const idx = parseInt(slide.getAttribute('data-index'), 10);
-      
+
       // Calculate circular distance
       let diff = idx - aboutCurrentIndex;
       if (diff > 3) diff -= 7;
@@ -490,7 +490,7 @@ const totalResidences = 5;
 function initFeaturesHorizontalPin() {
   const featuresSection = document.getElementById('lumera-features');
   const residenceTrack = document.querySelector('.lumera-residence-track');
-  
+
   if (!featuresSection || !residenceTrack || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
   const mm = gsap.matchMedia();
@@ -597,7 +597,7 @@ function updateResidenceButtons() {
 function goToResidence(index) {
   currentResidenceIdx = Math.max(0, Math.min(totalResidences - 1, index));
   const st = ScrollTrigger.getById('residenceTrigger');
-  
+
   if (st) {
     const progress = currentResidenceIdx / (totalResidences - 1);
     const targetScroll = st.start + progress * (st.end - st.start);
@@ -679,7 +679,7 @@ function initArchitectureParallax() {
 
   // Fadeup elements reveal
   gsap.utils.toArray('.fadeup, [data-copy-wrapper="true"]').forEach((el) => {
-    gsap.fromTo(el, 
+    gsap.fromTo(el,
       { y: 30, opacity: 0 },
       {
         y: 0,
@@ -893,7 +893,7 @@ function initFaqAccordion() {
           panel.style.height = 'auto';
           const targetHeight = panel.scrollHeight;
           panel.style.height = '0px';
-          
+
           if (typeof gsap !== 'undefined') {
             gsap.to(panel, {
               height: targetHeight,
@@ -982,25 +982,25 @@ function submitEnquiry(e) {
     method: 'POST',
     body: formData
   })
-  .then(res => res.json())
-  .then(data => {
-    btn.disabled = false;
-    btn.textContent = originalText;
-    if (data.success) {
+    .then(res => res.json())
+    .then(data => {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      if (data.success) {
+        closeEnquireModal();
+        showToast(data.message || 'Enquiry successfully submitted!');
+        form.reset();
+      } else {
+        alert(data.message || 'Something went wrong. Please try again.');
+      }
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      console.error('Enquiry error:', err);
       closeEnquireModal();
-      showToast(data.message || 'Enquiry successfully submitted!');
-      form.reset();
-    } else {
-      alert(data.message || 'Something went wrong. Please try again.');
-    }
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.textContent = originalText;
-    console.error('Enquiry error:', err);
-    closeEnquireModal();
-    showToast('Your request has been received. Our team will contact you.');
-  });
+      showToast('Your request has been received. Our team will contact you.');
+    });
 }
 
 // ==========================================
@@ -1021,7 +1021,7 @@ function initShowcaseAnimation() {
     if (playPromise !== undefined) {
       playPromise.catch(() => {
         const startOnScroll = () => {
-          video.play().catch(() => {});
+          video.play().catch(() => { });
           window.removeEventListener('scroll', startOnScroll);
           window.removeEventListener('touchstart', startOnScroll);
         };
@@ -1078,7 +1078,7 @@ function initAutoplayVideos() {
   videos.forEach(v => {
     v.muted = true;
     const play = () => {
-      v.play().catch(() => {});
+      v.play().catch(() => { });
     };
     play();
     window.addEventListener('scroll', play, { once: true, passive: true });
