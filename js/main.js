@@ -167,28 +167,73 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Curtain Footer Reveal Spacer
+// Curtain Footer Reveal Spacer & Animation Engine
 function initFooterReveal() {
   const footer = document.getElementById('footer');
   const siteWrapper = document.querySelector('.site-content-wrapper');
   if (!footer || !siteWrapper) return;
 
-  let resizeTimer;
   const updateFooterSpace = () => {
     if (window.innerWidth <= 1025) {
       siteWrapper.style.marginBottom = '0px';
     } else {
-      if (footer && siteWrapper) {
-        siteWrapper.style.marginBottom = `${footer.offsetHeight}px`;
+      const footerH = footer.offsetHeight;
+      if (footerH > 0) {
+        siteWrapper.style.marginBottom = `${footerH}px`;
       }
+    }
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
+    }
+    if (lenis && typeof lenis.resize === 'function') {
+      lenis.resize();
     }
   };
 
   updateFooterSpace();
+  let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(updateFooterSpace, 120);
+    resizeTimer = setTimeout(updateFooterSpace, 150);
   }, { passive: true });
   window.addEventListener('load', updateFooterSpace);
+  setTimeout(updateFooterSpace, 400);
+  setTimeout(updateFooterSpace, 1200);
+
+  // Scroll to Top Smooth Interaction
+  const scrollTopBtn = document.querySelector('a[aria-label="Scroll Top"]');
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+  // Parallax subtle glide on desktop footer curtain reveal
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1026px)", () => {
+      gsap.fromTo('#footer > div',
+        { y: -45, opacity: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: siteWrapper,
+            start: () => `bottom -${footer.offsetHeight}px`,
+            end: 'bottom bottom',
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        }
+      );
+    });
+  }
 }
 
 // ==========================================
@@ -677,8 +722,12 @@ function initArchitectureParallax() {
     });
   }
 
-  // Fadeup elements reveal
+  // Fadeup elements reveal (exclude fixed footer to prevent it from getting stuck at opacity: 0)
   gsap.utils.toArray('.fadeup, [data-copy-wrapper="true"]').forEach((el) => {
+    if (el.closest('#footer')) {
+      gsap.set(el, { y: 0, opacity: 1 });
+      return;
+    }
     gsap.fromTo(el, 
       { y: 30, opacity: 0 },
       {
