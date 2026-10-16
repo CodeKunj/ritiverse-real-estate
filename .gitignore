@@ -1,4 +1,9 @@
-# Environment & IDE
+# Environment & Secret Files
+.env
+.env.local
+.env.*.local
+
+# IDE & Agents
 .vscode/
 .idea/
 .claude/

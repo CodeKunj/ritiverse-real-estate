@@ -4,13 +4,60 @@
  * Designed for phpMyAdmin & MySQL / MariaDB
  */
 
-// Database Credentials (Defaults for XAMPP / WAMP / phpMyAdmin)
+/**
+ * Lightweight .env file loader for RiTiVerse
+ * Automatically parses project root .env into getenv(), $_ENV, and $_SERVER
+ */
+if (!function_exists('loadEnvFile')) {
+    function loadEnvFile(string $path): void
+    {
+        if (!file_exists($path) || !is_readable($path)) {
+            return;
+        }
+        $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines === false) {
+            return;
+        }
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if ($line === '' || str_starts_with($line, '#') || str_starts_with($line, ';')) {
+                continue;
+            }
+            if (!str_contains($line, '=')) {
+                continue;
+            }
+            [$key, $value] = explode('=', $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            // Strip surrounding quotes
+            if (strlen($value) >= 2) {
+                $first = $value[0];
+                $last = $value[strlen($value) - 1];
+                if (($first === '"' && $last === '"') || ($first === "'" && $last === "'")) {
+                    $value = substr($value, 1, -1);
+                }
+            }
+
+            if (!empty($key)) {
+                putenv("{$key}={$value}");
+                $_ENV[$key] = $value;
+                $_SERVER[$key] = $value;
+            }
+        }
+    }
+}
+
+// Load .env from project root
+loadEnvFile(dirname(__DIR__) . '/.env');
+
+// Database Credentials (Loaded dynamically from .env or environment)
 if (!defined('DB_HOST')) define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
 if (!defined('DB_PORT')) define('DB_PORT', getenv('DB_PORT') ?: 3306);
 if (!defined('DB_NAME')) define('DB_NAME', getenv('DB_NAME') ?: 'ritivers_realestate');
-if (!defined('DB_USER')) define('DB_USER', getenv('DB_USER') ?: 'ritivers_realestate');
-if (!defined('DB_PASS')) define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'ritivers_realestate');
-if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
+if (!defined('DB_USER')) define('DB_USER', getenv('DB_USER') ?: 'root');
+if (!defined('DB_PASS')) define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
+if (!defined('DB_CHARSET')) define('DB_CHARSET', getenv('DB_CHARSET') ?: 'utf8mb4');
 
 class Database
 {
