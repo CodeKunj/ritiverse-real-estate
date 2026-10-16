@@ -5,20 +5,26 @@
 ?>
 <section class="overflow-hidden bg-[#E0D4C6] h-[84vw] max-[1025px]:h-[170vw] max-md:h-[220vw]" id="about">
   <div class="py-[5%] pt-[10%] max-md:pt-[20%] max-[1025px]:py-[15%]">
-    
+<?php
+global $config;
+$aboutCms = $config['cms']['about'] ?? [];
+$aboutTitle = $aboutCms['title'] ?? "Real Estate,\nConsidered Differently";
+$aboutP1 = $aboutCms['p1'] ?? "We believe finding the right home begins with understanding how you want to live.";
+$aboutP2 = $aboutCms['p2'] ?? "From waterfront residences to private villas and landmark penthouses, we bring together exceptional properties with thoughtful guidance to make every decision feel considered, personal and effortless.";
+?>
     <div class="w-full px-[5%] max-md:px-[6%] flex justify-between max-[1025px]:flex-col max-[1025px]:gap-[8vw]">
       <div data-copy-wrapper="true" class="opacity-100 w-[50%] max-md:w-[90%] max-[1025px]:w-[90%]">
         <h2 data-para-anim="true" class="w-full font-heading text-[3.8vw] font-medium! leading-[1.2] max-md:text-[8vw] text-[#1c1b1a] mt-[-1vw] max-[1025px]:text-[8vw]">
-          Real Estate,<br/>Considered Differently
+          <?= nl2br(htmlspecialchars($aboutTitle)) ?>
         </h2>
       </div>
       <div class="w-[40%] space-y-[1.5vw] text-[#1c1b1a] text-[1.25vw] max-md:text-[3.5vw] max-[1025px]:text-[3vw] max-[1025px]:w-full">
         <div data-copy-wrapper="true" class="opacity-100">
-          <p data-para-anim="true">We believe finding the right home begins with understanding how you want to live.</p>
+          <p data-para-anim="true"><?= htmlspecialchars($aboutP1) ?></p>
         </div>
         <div data-copy-wrapper="true" class="opacity-100">
           <p data-para-anim="true">
-            From waterfront residences to private villas and landmark penthouses, we bring together exceptional properties with thoughtful guidance to make every decision feel considered, personal and effortless.
+            <?= htmlspecialchars($aboutP2) ?>
           </p>
         </div>
       </div>

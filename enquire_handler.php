@@ -54,18 +54,13 @@ $inquiry = [
     'ip'                => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
 ];
 
-$storageFile = __DIR__ . '/inquiries.json';
-$inquiries = [];
+// Save directly to MySQL database via DataStore
+require_once __DIR__ . '/includes/data_store.php';
+$dataStore = DataStore::getInstance();
+$dataStore->saveInquiry($inquiry);
 
-if (file_exists($storageFile)) {
-    $existing = json_decode(@file_get_contents($storageFile), true);
-    if (is_array($existing)) {
-        $inquiries = $existing;
-    }
-}
-
-$inquiries[] = $inquiry;
-@file_put_contents($storageFile, json_encode($inquiries, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+// Trigger admin email notification according to mail settings
+@$dataStore->notifyAdminNewInquiry($inquiry);
 
 echo json_encode([
     'success' => true,

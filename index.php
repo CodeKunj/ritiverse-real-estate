@@ -4,23 +4,17 @@
  * Master PHP Template
  */
 
-$config = require __DIR__ . '/config.php';
+$dataStore = require __DIR__ . '/includes/data_store.php';
+$config = $dataStore->getConfig();
 ?>
 <!DOCTYPE html>
 <html lang="en" class="dm_sans_90d73d94-module__WQ0eYW__variable">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($config['site']['name']) ?> - Luxury Indian Real Estate</title>
-    <meta name="description" content="<?= htmlspecialchars($config['site']['description']) ?>">
     
-    <!-- Open Graph / Meta -->
-    <meta property="og:title" content="<?= htmlspecialchars($config['site']['name']) ?> - Luxury Indian Real Estate">
-    <meta property="og:description" content="<?= htmlspecialchars($config['site']['description']) ?>">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= htmlspecialchars($config['site']['name']) ?> - Luxury Indian Real Estate">
-    <meta name="twitter:description" content="<?= htmlspecialchars($config['site']['description']) ?>">
+    <!-- Dynamic SEO, Open Graph & Tracking Integrations (Google Analytics, GSC, Meta Pixel, Bing) -->
+    <?= $dataStore->renderHead('index') ?>
 
     <!-- Google Fonts: DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +51,6 @@ $config = require __DIR__ . '/config.php';
     <?php require __DIR__ . '/includes/footer.php'; ?>
     <?php require __DIR__ . '/includes/enquire_modal.php'; ?>
 
-    
     <!-- Local High-Performance Animation Libraries -->
     <script src="js/lenis.min.js"></script>
     <script src="js/gsap.min.js"></script>
@@ -65,5 +58,8 @@ $config = require __DIR__ . '/config.php';
 
     <!-- Main Application Scripts -->
     <script src="js/main.js?v=<?= filemtime(__DIR__ . '/js/main.js') ?>"></script>
+
+    <!-- Dynamic Body / Custom Scripts Injection -->
+    <?= $dataStore->renderFooterScripts() ?>
 </body>
 </html>

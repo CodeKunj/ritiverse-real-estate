@@ -2,158 +2,35 @@
 /**
  * RiTiVerse - Curated Architectural Gallery & Visual Perspectives
  * Dedicated Full-Scale Visual Archive with Interactive Lightbox & Filters
+ * Supports high-resolution WebP photography & YouTube Cinematic Video Tours
  */
 
-$config = require __DIR__ . '/config.php';
+$dataStore = require_once __DIR__ . '/includes/data_store.php';
+$config = $dataStore->getConfig();
+$galleryItems = $dataStore->getGalleryItems();
 
-// Curated 12 Architectural Gallery Works
-$galleryItems = [
-    [
-        'id' => 1,
-        'title' => 'The Arabian Seafront Residence',
-        'location' => 'Worli Sea Face, Mumbai',
-        'category' => 'coastal',
-        'category_name' => 'Coastal Sanctuaries',
-        'image' => 'assets/project-1-new.0u9fesgwq9skw.webp',
-        'dimensions' => '11,400 Sq. Ft.',
-        'residence_slug' => 'worli-seaface',
-        'description' => 'A contemporary beachfront villa shaped around open spaces, uninterrupted Arabian Sea horizons and seamless indoor-outdoor coastal living.'
-    ],
-    [
-        'id' => 2,
-        'title' => 'Malabar Crest Sky Penthouse',
-        'location' => 'Malabar Hill, Mumbai',
-        'category' => 'penthouses',
-        'category_name' => 'Sky Penthouses',
-        'image' => 'assets/project-2.0pf4-s2q1w0m3.webp',
-        'dimensions' => '9,850 Sq. Ft.',
-        'residence_slug' => 'malabar-crest',
-        'description' => 'An expansive penthouse retreat with wraparound terraces, double-height entertaining spaces and 360-degree views of Marine Drive and the Arabian Sea.'
-    ],
-    [
-        'id' => 3,
-        'title' => 'Goa Tropical Sanctuary Villa',
-        'location' => 'Assagao, North Goa',
-        'category' => 'coastal',
-        'category_name' => 'Coastal Sanctuaries',
-        'image' => 'assets/project-3-new.1fr3t03j3hm3-.webp',
-        'dimensions' => '10,200 Sq. Ft.',
-        'residence_slug' => 'goa-courtyard',
-        'description' => 'A tranquil private villa collection centered around lush tropical reflection gardens, private forest boundaries and Portuguese-modern teak accents.'
-    ],
-    [
-        'id' => 4,
-        'title' => 'The Camellias Reserve Mansion',
-        'location' => 'Golf Course Road, Delhi NCR',
-        'category' => 'penthouses',
-        'category_name' => 'Sky Penthouses',
-        'image' => 'assets/project-4-new.3svcowi2h1ysr.webp',
-        'dimensions' => '13,500 Sq. Ft.',
-        'residence_slug' => 'golf-estate',
-        'description' => 'A statement sky mansion overlooking championship greens, pairing private wellness suites, grand banquet salons and a 7-star resort atmosphere.'
-    ],
-    [
-        'id' => 5,
-        'title' => 'Double-Height Living Salon',
-        'location' => 'Worli Sea Face, Mumbai',
-        'category' => 'interiors',
-        'category_name' => 'Bespoke Interiors',
-        'image' => 'assets/architecture-1.1ldiswkqp2nfk.webp',
-        'dimensions' => 'Floor-to-Ceiling Glass',
-        'residence_slug' => 'worli-seaface',
-        'description' => 'Architectural double-height volume with floor-to-ceiling acoustic glass panels framing the Arabian Sea waves and the Bandra-Worli Sea Link.'
-    ],
-    [
-        'id' => 6,
-        'title' => 'Minimalist Teak & Marble Reception',
-        'location' => 'Malabar Hill, Mumbai',
-        'category' => 'interiors',
-        'category_name' => 'Bespoke Interiors',
-        'image' => 'assets/cta-1.0-_qg3kedekdn.webp',
-        'dimensions' => 'Italian Statuario Marble',
-        'residence_slug' => 'malabar-crest',
-        'description' => 'A serene reception salon featuring monolithic bookmatched Italian marble, customized hand-rubbed Burma teak cabinetry, and ambient cove illumination.'
-    ],
-    [
-        'id' => 7,
-        'title' => "Artisan Chef's Kitchen & Island",
-        'location' => 'Assagao, North Goa',
-        'category' => 'interiors',
-        'category_name' => 'Bespoke Interiors',
-        'image' => 'assets/cta-2.3sxqfck474crs.webp',
-        'dimensions' => 'Custom European Joinery',
-        'residence_slug' => 'goa-courtyard',
-        'description' => 'A culinary centerpiece fitted with bespoke fluted bronze accents, concealed Sub-Zero and Gaggenau appliances, and a waterfall quartzite breakfast bar.'
-    ],
-    [
-        'id' => 8,
-        'title' => 'Master Horizon Suite & Terraces',
-        'location' => 'Golf Course Road, Delhi NCR',
-        'category' => 'interiors',
-        'category_name' => 'Bespoke Interiors',
-        'image' => 'assets/cta-3.386hetcw1l51x.webp',
-        'dimensions' => 'Private Sky Deck',
-        'residence_slug' => 'golf-estate',
-        'description' => 'A sprawling primary sanctuary featuring an ensuite spa bath carved from travertine stone, dual dressing galleries, and a private sunrise terrace.'
-    ],
-    [
-        'id' => 9,
-        'title' => 'Cantilevered Sky Sundeck & Pool',
-        'location' => 'Worli Sea Face, Mumbai',
-        'category' => 'amenities',
-        'category_name' => 'Signature Amenities',
-        'image' => 'assets/portfolio-img-new-1.3ulka13a-n5np.webp',
-        'dimensions' => 'Heated Infinity Edge',
-        'residence_slug' => 'worli-seaface',
-        'description' => 'A gravity-defying cantilevered sundeck suspended over the coastline, featuring an Olympic-length heated lap pool and private cabana loungers.'
-    ],
-    [
-        'id' => 10,
-        'title' => 'Sculptural Cantilever Staircase',
-        'location' => 'Malabar Hill, Mumbai',
-        'category' => 'interiors',
-        'category_name' => 'Bespoke Interiors',
-        'image' => 'assets/portfolio-img-new-3.43tkm-o7u7q3-.webp',
-        'dimensions' => 'Solid Teak & Bronze',
-        'residence_slug' => 'malabar-crest',
-        'description' => 'A spiral architectural statement connecting triplex levels, engineered from solid cast bronze stringers and cantilevered smoked-oak treads.'
-    ],
-    [
-        'id' => 11,
-        'title' => 'Sunken Oceanfront Firepit & Lounge',
-        'location' => 'Assagao, North Goa',
-        'category' => 'amenities',
-        'category_name' => 'Signature Amenities',
-        'image' => 'assets/highlight-1.2o4ruh3co9gp1.webp',
-        'dimensions' => 'Natural Basalt Stone',
-        'residence_slug' => 'goa-courtyard',
-        'description' => 'An evening gathering space sunken into reflecting pool waters, anchored by a smokeless ethanol flame feature and surrounded by fragrant tropical flora.'
-    ],
-    [
-        'id' => 12,
-        'title' => 'Reflective Lotus Water Pavilion',
-        'location' => 'Worli Sea Face, Mumbai',
-        'category' => 'amenities',
-        'category_name' => 'Signature Amenities',
-        'image' => 'assets/gallery-1.2tr8oh4dnb21n.webp',
-        'dimensions' => 'Zen Reflection Basin',
-        'residence_slug' => 'worli-seaface',
-        'description' => 'A meditative water court inspired by classical Indian architecture, bridging arrival portals with hand-chiseled slate channels and aquatic lotus blooms.'
-    ],
-];
+// Compute dynamic categories for filter bar
+$categories = [];
+$hasVideos = false;
+foreach ($galleryItems as $item) {
+    $catSlug = $item['category'] ?? 'general';
+    $catName = $item['category_name'] ?? ucfirst($catSlug);
+    if (!isset($categories[$catSlug])) {
+        $categories[$catSlug] = $catName;
+    }
+    if (($item['type'] ?? '') === 'youtube') {
+        $hasVideos = true;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="dm_sans_90d73d94-module__WQ0eYW__variable">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Curated Architectural Gallery | <?= htmlspecialchars($config['site']['name']) ?></title>
-    <meta name="description" content="Explore the visual perspectives, spatial geometry, and material purity of RiTiVerse's luxury coastal and metropolitan residences across India.">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="Curated Architectural Gallery | <?= htmlspecialchars($config['site']['name']) ?>">
-    <meta property="og:description" content="Visual perspectives of India's most extraordinary private residences and sky estates.">
-    <meta property="og:type" content="website">
+    <!-- Dynamic SEO & Meta Tags (configured in Admin SEO settings) -->
+    <?= $dataStore->renderHead('gallery') ?>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -315,10 +192,10 @@ $galleryItems = [
         position: absolute;
         top: 1rem;
         left: 1rem;
-        z-index: 2;
+        z-index: 4;
         padding: 0.35rem 0.85rem;
         border-radius: 9999px;
-        background: rgba(18, 17, 16, 0.8);
+        background: rgba(18, 17, 16, 0.85);
         backdrop-filter: blur(8px);
         border: 1px solid rgba(255, 255, 255, 0.12);
         font-size: 0.72rem;
@@ -326,11 +203,44 @@ $galleryItems = [
         text-transform: uppercase;
         color: #CA8216;
         font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
       }
+      .gallery-badge-top.video-badge {
+        color: #ff4757;
+        border-color: rgba(255, 71, 87, 0.35);
+        background: rgba(20, 10, 12, 0.88);
+      }
+
+      /* Play Button Overlay for Videos */
+      .gallery-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        width: 62px;
+        height: 62px;
+        background: rgba(202, 130, 22, 0.92);
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 20px rgba(202, 130, 22, 0.4);
+        z-index: 3;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+        pointer-events: none;
+      }
+      .gallery-card:hover .gallery-play-btn {
+        transform: translate(-50%, -50%) scale(1.12);
+        background: #CA8216;
+      }
+
       .gallery-overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(18, 17, 16, 0.95) 0%, rgba(18, 17, 16, 0.2) 60%, transparent 100%);
+        background: linear-gradient(to top, rgba(18, 17, 16, 0.95) 0%, rgba(18, 17, 16, 0.25) 55%, transparent 100%);
         z-index: 2;
         display: flex;
         flex-direction: column;
@@ -399,22 +309,38 @@ $galleryItems = [
         flex-direction: column;
         align-items: center;
       }
-      .lightbox-img-box {
+      .lightbox-media-box {
         position: relative;
         max-height: 68vh;
         width: auto;
         display: flex;
         justify-content: center;
+        align-items: center;
         overflow: hidden;
         border-radius: 1rem;
         border: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+        background: #000000;
       }
-      .lightbox-img-box img {
+      .lightbox-media-box img {
         max-height: 68vh;
         max-width: 100%;
         object-fit: contain;
         display: block;
+      }
+      .lightbox-media-box iframe {
+        width: 75vw;
+        max-width: 1000px;
+        height: 42vw;
+        max-height: 560px;
+        border: none;
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .lightbox-media-box iframe {
+          width: 90vw;
+          height: 52vw;
+        }
       }
       .lightbox-caption-bar {
         width: 100%;
@@ -576,22 +502,40 @@ $galleryItems = [
 
                 <!-- Category Filters -->
                 <div class="gallery-filter-bar" id="galleryFilters">
-                    <button type="button" class="filter-btn active" data-filter="all">All Perspectives (12)</button>
-                    <button type="button" class="filter-btn" data-filter="coastal">Coastal Sanctuaries</button>
-                    <button type="button" class="filter-btn" data-filter="penthouses">Sky Penthouses</button>
-                    <button type="button" class="filter-btn" data-filter="interiors">Bespoke Interiors</button>
-                    <button type="button" class="filter-btn" data-filter="amenities">Signature Amenities</button>
+                    <button type="button" class="filter-btn active" data-filter="all">All Perspectives (<?= count($galleryItems) ?>)</button>
+                    <?php foreach ($categories as $catKey => $catLabel): ?>
+                        <button type="button" class="filter-btn" data-filter="<?= htmlspecialchars($catKey) ?>"><?= htmlspecialchars($catLabel) ?></button>
+                    <?php endforeach; ?>
+                    <?php if ($hasVideos && !isset($categories['youtube'])): ?>
+                        <button type="button" class="filter-btn" data-filter="youtube">▶ Video Tours</button>
+                    <?php endif; ?>
                 </div>
             </section>
 
             <!-- Gallery Grid -->
             <section class="gallery-section">
                 <div class="gallery-grid" id="galleryGrid">
-                    <?php foreach ($galleryItems as $index => $item): ?>
-                        <div class="gallery-card" data-category="<?= htmlspecialchars($item['category']) ?>" data-index="<?= $index ?>">
+                    <?php foreach ($galleryItems as $index => $item): 
+                        $isYoutube = ($item['type'] ?? '') === 'youtube';
+                    ?>
+                        <div class="gallery-card" data-category="<?= htmlspecialchars($item['category'] ?? 'general') ?>" data-type="<?= htmlspecialchars($item['type'] ?? 'image') ?>" data-index="<?= $index ?>">
                             <div class="gallery-img-wrapper">
-                                <span class="gallery-badge-top"><?= htmlspecialchars($item['category_name']) ?></span>
+                                <span class="gallery-badge-top <?= $isYoutube ? 'video-badge' : '' ?>">
+                                    <?php if ($isYoutube): ?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    <?php endif; ?>
+                                    <?= htmlspecialchars($item['category_name'] ?? 'Gallery') ?>
+                                </span>
+
+                                <?php if ($isYoutube): ?>
+                                    <!-- Play Button Overlay -->
+                                    <div class="gallery-play-btn" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 3px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    </div>
+                                <?php endif; ?>
+
                                 <img src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['title']) ?>" class="gallery-img" loading="lazy" decoding="async">
+                                
                                 <div class="gallery-overlay">
                                     <h3 class="gallery-card-title"><?= htmlspecialchars($item['title']) ?></h3>
                                     <div class="gallery-card-location">
@@ -599,9 +543,9 @@ $galleryItems = [
                                         <span><?= htmlspecialchars($item['location']) ?></span>
                                     </div>
                                     <div class="gallery-card-footer">
-                                        <span><?= htmlspecialchars($item['dimensions']) ?></span>
+                                        <span><?= htmlspecialchars($item['dimensions'] ?? ($isYoutube ? '4K Video Tour' : 'Architectural View')) ?></span>
                                         <span class="expand-indicator">
-                                            <span>Expand View</span>
+                                            <span><?= $isYoutube ? 'Play Video' : 'Expand View' ?></span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
                                         </span>
                                     </div>
@@ -624,7 +568,7 @@ $galleryItems = [
         </main>
     </div>
 
-    <!-- Lightbox Modal -->
+    <!-- Lightbox Modal with Image & YouTube Video Player Support -->
     <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true">
         <div class="lightbox-content">
             <button type="button" class="lightbox-close-btn" id="lightboxClose" aria-label="Close Lightbox">
@@ -633,16 +577,17 @@ $galleryItems = [
             </button>
 
             <!-- Navigation Buttons -->
-            <button type="button" class="lightbox-nav-btn lightbox-prev" id="lightboxPrev" aria-label="Previous Image">
+            <button type="button" class="lightbox-nav-btn lightbox-prev" id="lightboxPrev" aria-label="Previous Item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
             </button>
-            <button type="button" class="lightbox-nav-btn lightbox-next" id="lightboxNext" aria-label="Next Image">
+            <button type="button" class="lightbox-nav-btn lightbox-next" id="lightboxNext" aria-label="Next Item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
 
-            <!-- Image View -->
-            <div class="lightbox-img-box">
+            <!-- Media Box (Switches between Photo and YouTube Iframe) -->
+            <div class="lightbox-media-box">
                 <img id="lightboxImg" src="" alt="Gallery Preview">
+                <iframe id="lightboxVideo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <!-- Caption Bar -->
@@ -670,7 +615,7 @@ $galleryItems = [
     <script src="js/ScrollTrigger.min.js"></script>
     <script src="js/main.js?v=<?= filemtime(__DIR__ . '/js/main.js') ?>"></script>
 
-    <!-- Gallery Interactive Filters & Lightbox Engine -->
+    <!-- Gallery Interactive Filters & Lightbox Engine with YouTube Support -->
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const galleryData = <?= json_encode($galleryItems, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
@@ -681,6 +626,7 @@ $galleryItems = [
         const prevBtn = document.getElementById('lightboxPrev');
         const nextBtn = document.getElementById('lightboxNext');
         const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxVideo = document.getElementById('lightboxVideo');
         const lightboxTitle = document.getElementById('lightboxTitle');
         const lightboxDesc = document.getElementById('lightboxDesc');
         const lightboxInquireBtn = document.getElementById('lightboxInquireBtn');
@@ -698,7 +644,13 @@ $galleryItems = [
                 visibleIndices = [];
                 cards.forEach((card, idx) => {
                     const category = card.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
+                    const itemType = card.getAttribute('data-type');
+                    
+                    const match = (filter === 'all') || 
+                                  (category === filter) || 
+                                  (filter === 'youtube' && itemType === 'youtube');
+
+                    if (match) {
                         card.style.display = 'block';
                         visibleIndices.push(idx);
                     } else {
@@ -730,16 +682,35 @@ $galleryItems = [
             const item = galleryData[currentIndex];
             if (!item) return;
 
-            lightboxImg.src = item.image;
-            lightboxImg.alt = item.title;
-            lightboxTitle.textContent = item.title + ' — ' + item.location;
-            lightboxDesc.textContent = item.description;
-            lightboxInquireBtn.href = `contact.php?residence=${encodeURIComponent(item.residence_slug)}`;
+            lightboxTitle.textContent = item.title + (item.location ? ' — ' + item.location : '');
+            lightboxDesc.textContent = item.description || '';
+            const slug = item.residence_slug || '';
+            lightboxInquireBtn.href = slug ? `contact.php?residence=${encodeURIComponent(slug)}` : 'contact.php';
+
+            if (item.type === 'youtube' && item.youtube_id) {
+                // Video Mode
+                lightboxImg.style.display = 'none';
+                lightboxImg.src = '';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = `https://www.youtube-nocookie.com/embed/${item.youtube_id}?autoplay=1&rel=0`;
+            } else {
+                // Image Mode
+                lightboxVideo.style.display = 'none';
+                lightboxVideo.src = ''; // stop any playing video
+                lightboxImg.style.display = 'block';
+                lightboxImg.src = item.image;
+                lightboxImg.alt = item.title;
+            }
         }
 
         function closeLightbox() {
             modal.classList.remove('is-active');
             document.body.style.overflow = '';
+            // Critical: stop YouTube playback immediately
+            if (lightboxVideo) {
+                lightboxVideo.src = '';
+                lightboxVideo.style.display = 'none';
+            }
         }
 
         function showNext() {
@@ -777,5 +748,8 @@ $galleryItems = [
         });
     });
     </script>
+
+    <!-- Dynamic Footer Scripts Injection (Meta Pixel, custom scripts) -->
+    <?= $dataStore->renderFooterScripts() ?>
 </body>
 </html>

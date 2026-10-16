@@ -14,29 +14,34 @@ A curated web platform showcasing India's most exclusive coastal and metropolita
 
 - **Backend**: PHP 8.x
 - **Frontend**: HTML5, Vanilla Modern CSS, JavaScript (Vanilla ES6+)
-- **Storage**: JSON data store (`config.php`, `inquiries.json`)
+- **Database**: MySQL / MariaDB (via phpMyAdmin / PDO)
+- **Admin Panel**: Executive CMS & Inquiries Console (`/admin`)
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- PHP 7.4+ or PHP 8.x installed (or local server environment like XAMPP / WampServer / Herd).
+- PHP 8.x installed with PDO MySQL and GD extensions
+- MySQL / MariaDB (XAMPP / WampServer / phpMyAdmin)
 
-### Local Setup
+### Database Setup (phpMyAdmin)
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/CodeKunj/ritiverse-real-estate.git
-   cd ritiverse-real-estate
-   ```
+1. Start **Apache** & **MySQL** in XAMPP.
+2. Open **`http://localhost/phpmyadmin/`**.
+3. Click **Import**, choose **`database.sql`**, and click **Import / Go**.
+   *(Creates database `ritivers_realestate` and pre-loads all luxury residences, CMS content, gallery items, and admin credentials).*
 
-2. **Start PHP development server:**
+### Local Development Server
+
+1. **Start PHP server:**
    ```bash
    php -S localhost:8000
    ```
 
-3. **Open in browser:**
-   Visit `http://localhost:8000` in your browser.
+2. **Access Website & Admin Panel:**
+   - **Frontend**: `http://localhost:8000`
+   - **Admin Panel**: `http://localhost:8000/admin`
+   - **Default Admin Login**: `admin@ritiverse.com` / `admin123456`
 
 ---
 

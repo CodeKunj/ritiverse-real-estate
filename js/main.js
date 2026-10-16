@@ -530,7 +530,10 @@ function initCoreFeaturesSwitcher() {
 // D. HORIZONTAL PINNED RESIDENCE TRACK
 // ==========================================
 let currentResidenceIdx = 0;
-const totalResidences = 5;
+function getTotalResidences() {
+  const tabs = document.querySelectorAll('.residence-tab-btn');
+  return tabs.length > 0 ? tabs.length : 5;
+}
 
 function initFeaturesHorizontalPin() {
   const featuresSection = document.getElementById('lumera-features');
@@ -551,7 +554,8 @@ function initFeaturesHorizontalPin() {
         invalidateOnRefresh: true,
         id: 'residenceTrigger',
         onUpdate: (self) => {
-          const idx = Math.min(totalResidences - 1, Math.floor(self.progress * totalResidences));
+          const total = getTotalResidences();
+          const idx = Math.min(total - 1, Math.floor(self.progress * total));
           if (idx !== currentResidenceIdx) {
             currentResidenceIdx = idx;
             updateResidenceButtons();
@@ -640,11 +644,12 @@ function updateResidenceButtons() {
 }
 
 function goToResidence(index) {
-  currentResidenceIdx = Math.max(0, Math.min(totalResidences - 1, index));
+  const total = getTotalResidences();
+  currentResidenceIdx = Math.max(0, Math.min(total - 1, index));
   const st = ScrollTrigger.getById('residenceTrigger');
   
   if (st) {
-    const progress = currentResidenceIdx / (totalResidences - 1);
+    const progress = currentResidenceIdx / Math.max(1, total - 1);
     const targetScroll = st.start + progress * (st.end - st.start);
     if (lenis) {
       lenis.scrollTo(targetScroll, { duration: 1.2 });

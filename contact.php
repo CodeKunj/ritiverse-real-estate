@@ -4,21 +4,28 @@
  * Dedicated Ultra-Luxury Real Estate Contact & Advisory Experience
  */
 
-$config = require __DIR__ . '/config.php';
+$dataStore = require_once __DIR__ . '/includes/data_store.php';
+$config = $dataStore->getConfig();
 $selectedResidence = isset($_GET['residence']) ? trim(htmlspecialchars($_GET['residence'])) : '';
+
+$contactCms = $config['cms']['contact'] ?? [];
+$contactBadge = $contactCms['badge'] ?? 'Private Client Advisory & Acquisitions';
+$contactHeroTitle = $contactCms['hero_title'] ?? 'Initiate a Confidential Acquisition Consultation';
+$contactHeroSub = $contactCms['hero_sub'] ?? 'Whether commissioning a seafront estate in Worli, acquiring an architectural courtyard villa in Assagao, or securing an off-market sky mansion in Delhi NCR, our senior partners provide discrete, comprehensive counsel.';
+$contactPhone = $contactCms['concierge_phone'] ?? $config['site']['phone'];
+$contactPhoneRaw = $config['site']['phone_raw'] ?? preg_replace('/[^0-9+]/', '', $contactPhone);
+$contactEmail = $contactCms['advisory_email'] ?? $config['site']['email'];
+$contactAddress = $contactCms['address'] ?? $config['site']['address'];
+$contactHours = $contactCms['office_hours'] ?? 'Daily 8:00 AM – 10:00 PM IST';
 ?>
 <!DOCTYPE html>
 <html lang="en" class="dm_sans_90d73d94-module__WQ0eYW__variable">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Private Client Advisory & Acquisitions | <?= htmlspecialchars($config['site']['name']) ?></title>
-    <meta name="description" content="Initiate a confidential acquisition consultation with the RiTiVerse Private Client Advisory desk for luxury residences across Mumbai, Goa, and Delhi NCR.">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="Private Client Advisory & Acquisitions | <?= htmlspecialchars($config['site']['name']) ?>">
-    <meta property="og:description" content="Discreet acquisition guidance and private previews for India's most significant coastal and metropolitan residences.">
-    <meta property="og:type" content="website">
+    <!-- Dynamic SEO & Meta Tags (configured in Admin SEO settings) -->
+    <?= $dataStore->renderHead('contact') ?>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -512,13 +519,13 @@ $selectedResidence = isset($_GET['residence']) ? trim(htmlspecialchars($_GET['re
             <section class="advisory-hero">
                 <div class="max-w-[1440px] mx-auto">
                     <div class="advisory-badge">
-                        ✦ Private Client Advisory & Acquisitions
+                        ✦ <?= htmlspecialchars($contactBadge) ?>
                     </div>
                     <h1 class="advisory-hero-title">
-                        Initiate a Confidential Acquisition Consultation
+                        <?= htmlspecialchars($contactHeroTitle) ?>
                     </h1>
                     <p class="advisory-hero-sub">
-                        Whether commissioning a seafront estate in Worli, acquiring an architectural courtyard villa in Assagao, or securing an off-market sky mansion in Delhi NCR, our senior partners provide discrete, comprehensive counsel.
+                        <?= htmlspecialchars($contactHeroSub) ?>
                     </p>
                     <div class="sla-pill-container">
                         <div class="sla-pill">
@@ -550,27 +557,27 @@ $selectedResidence = isset($_GET['residence']) ? trim(htmlspecialchars($_GET['re
                                 Priority Concierge Desk
                             </div>
                             <div class="channel-list">
-                                <a href="tel:+912269854100" class="channel-item">
+                                <a href="tel:<?= htmlspecialchars($contactPhoneRaw) ?>" class="channel-item">
                                     <div class="channel-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                                     </div>
                                     <div class="channel-info">
-                                        <h4>+91 (022) 6985 4100</h4>
-                                        <p>Direct Senior Partner Hotline (Daily 8:00 AM – 10:00 PM IST)</p>
+                                        <h4><?= htmlspecialchars($contactPhone) ?></h4>
+                                        <p>Direct Senior Partner Hotline (<?= htmlspecialchars($contactHours) ?>)</p>
                                     </div>
                                 </a>
 
-                                <a href="mailto:concierge@ritiverse.com" class="channel-item">
+                                <a href="mailto:<?= htmlspecialchars($contactEmail) ?>" class="channel-item">
                                     <div class="channel-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                                     </div>
                                     <div class="channel-info">
-                                        <h4>concierge@ritiverse.com</h4>
+                                        <h4><?= htmlspecialchars($contactEmail) ?></h4>
                                         <p>Confidential Acquisitions & Family Office Enquiries</p>
                                     </div>
                                 </a>
 
-                                <a href="https://wa.me/912269854100?text=Hello%20RiTiVerse%20Concierge%2C%20I%20would%20like%20to%20request%20a%20private%20advisory%20consultation." target="_blank" rel="noopener noreferrer" class="channel-item">
+                                <a href="https://wa.me/<?= ltrim(htmlspecialchars($contactPhoneRaw), '+') ?>?text=Hello%20RiTiVerse%20Concierge%2C%20I%20would%20like%20to%20request%20a%20private%20advisory%20consultation." target="_blank" rel="noopener noreferrer" class="channel-item">
                                     <div class="channel-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                                     </div>
@@ -924,5 +931,7 @@ $selectedResidence = isset($_GET['residence']) ? trim(htmlspecialchars($_GET['re
         });
     });
     </script>
+    <!-- Dynamic Footer Scripts Injection (Meta Pixel, custom scripts) -->
+    <?= $dataStore->renderFooterScripts() ?>
 </body>
 </html>

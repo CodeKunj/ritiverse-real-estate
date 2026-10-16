@@ -16,3 +16,4 @@ inquiries.json
 *.log
 
 skills-lock.json
+database.sql

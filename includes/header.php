@@ -17,7 +17,7 @@ $headerClass = $isIndex
     <!-- Logo -->
     <a class="relative z-60 flex items-center gap-[0.6vw] max-[1025px]:gap-[2vw]" href="index.php">
       <div class="h-fit w-44 max-md:w-32">
-        <img alt="RiTiVerse" loading="lazy" width="310" height="62" decoding="async" class="h-full w-full object-contain" src="assets/ritiverse-logo-white.svg"/>
+        <img alt="<?= htmlspecialchars($config['site']['name'] ?? 'RiTiVerse') ?>" loading="lazy" width="310" height="62" decoding="async" class="h-full w-full object-contain" src="<?= htmlspecialchars(!empty($config['site']['logo_white']) ? $config['site']['logo_white'] : 'assets/ritiverse-logo-white.svg') ?>"/>
       </div>
     </a>
 
