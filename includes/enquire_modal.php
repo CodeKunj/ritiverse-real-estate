@@ -12,6 +12,10 @@ global $config;
     </div>
 
     <form id="enquireForm" method="POST" action="enquire_handler.php" onsubmit="submitEnquiry(event)">
+      <!-- Anti-Spam Bot Trap (Honeypot) -->
+      <div style="display:none !important;" aria-hidden="true">
+        <input type="text" name="vip_code_extra" tabindex="-1" autocomplete="off">
+      </div>
       <div class="flex flex-col gap-4">
         <div>
           <label class="block text-xs uppercase tracking-wider text-white/70 mb-1.5 font-medium">Full Name *</label>

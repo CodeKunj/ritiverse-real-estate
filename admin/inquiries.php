@@ -21,17 +21,17 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 
     foreach ($inquiries as $inq) {
         fputcsv($output, [
-            $inq['id'] ?? '',
-            $inq['timestamp'] ?? '',
-            $inq['name'] ?? '',
-            $inq['email'] ?? '',
-            $inq['phone'] ?? '',
-            $inq['residence'] ?? '',
-            $inq['budget'] ?? '',
-            $inq['profile'] ?? '',
-            $inq['consultation_mode'] ?? '',
-            $inq['message'] ?? '',
-            $inq['ip'] ?? ''
+            Security::sanitizeCsvCell($inq['id'] ?? ''),
+            Security::sanitizeCsvCell($inq['timestamp'] ?? ''),
+            Security::sanitizeCsvCell($inq['name'] ?? ''),
+            Security::sanitizeCsvCell($inq['email'] ?? ''),
+            Security::sanitizeCsvCell($inq['phone'] ?? ''),
+            Security::sanitizeCsvCell($inq['residence'] ?? ''),
+            Security::sanitizeCsvCell($inq['budget'] ?? ''),
+            Security::sanitizeCsvCell($inq['profile'] ?? ''),
+            Security::sanitizeCsvCell($inq['consultation_mode'] ?? ''),
+            Security::sanitizeCsvCell($inq['message'] ?? ''),
+            Security::sanitizeCsvCell($inq['ip'] ?? '')
         ]);
     }
     fclose($output);

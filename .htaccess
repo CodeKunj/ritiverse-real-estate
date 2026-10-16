@@ -1,0 +1,89 @@
+# ========================================================
+# RiTiVerse - Production Apache Configuration & Security Hardening
+# ========================================================
+
+# 1. Disable Directory Indexing (Prevents browsing folder contents)
+Options -Indexes -MultiViews
+
+# 2. Default Character Set
+AddDefaultCharset UTF-8
+
+# 3. Block Sensitive Files and Hidden Dotfiles
+<FilesMatch "(^\.|\.(env|sql|md|json|log|bak|config|dist|yml|yaml|ini|lock|git.*))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Specifically protect .env and database.sql
+<Files ".env">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</Files>
+
+<Files "database.sql">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</Files>
+
+# 4. Protect includes directory from direct URL requests
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Prevent direct HTTP access to includes/*.php
+    RewriteRule ^includes/.*\.php$ - [F,L]
+
+    # Block access to hidden directories (.git, .vscode, .agents)
+    RewriteRule (^|/)\.(?!well-known) - [F]
+</IfModule>
+
+# 5. HTTP Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking attacks
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Cross-site scripting (XSS) filter
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Control Referrer Information
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy (Restrict browser device features)
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # Remove PHP Version Header
+    Header unset X-Powered-By
+</IfModule>
+
+# 6. Gzip / Deflate Compression for Speed & Core Web Vitals
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# 7. Browser Caching for Production Static Assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

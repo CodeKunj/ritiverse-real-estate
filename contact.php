@@ -657,6 +657,11 @@ $contactHours = $contactCms['office_hours'] ?? 'Daily 8:00 AM – 10:00 PM IST';
                             </div>
 
                             <form id="mandateConsultationForm" novalidate>
+                                <!-- Anti-Spam Bot Trap (Honeypot) -->
+                                <div style="display:none !important;" aria-hidden="true">
+                                    <input type="text" name="vip_code_extra" tabindex="-1" autocomplete="off">
+                                </div>
+
                                 <!-- Name and Profile -->
                                 <div class="form-row">
                                     <div class="form-group">

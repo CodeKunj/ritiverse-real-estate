@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/security.php';
 // Header Component
 global $config;
 $currentScript = basename($_SERVER['PHP_SELF'] ?? 'index.php');

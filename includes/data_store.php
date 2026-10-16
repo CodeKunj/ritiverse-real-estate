@@ -5,6 +5,7 @@
  * Handles database persistence, WebP image conversion, SEO rendering, SMTP mailing & auth.
  */
 
+require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/db.php';
 
 class DataStore
@@ -567,25 +568,39 @@ class DataStore
             return ['success' => false, 'error' => 'Upload error code: ' . $file['error']];
         }
 
+        // 1. Strict File Size Limit (Max 12MB)
+        if (!empty($file['size']) && $file['size'] > 12 * 1024 * 1024) {
+            return ['success' => false, 'error' => 'File size exceeds maximum allowed limit of 12MB.'];
+        }
+
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
-        if (!in_array($ext, $allowedExtensions)) {
-            return ['success' => false, 'error' => 'Only JPG, PNG, WEBP and SVG files are supported.'];
+        if (!in_array($ext, $allowedExtensions, true)) {
+            return ['success' => false, 'error' => 'Only JPG, PNG, WEBP and SVG files are allowed.'];
         }
 
+        // 2. SVG Sanitization (Anti-XXE & Stored XSS)
         if ($ext === 'svg') {
-            $newFileName = $prefix . '_' . uniqid() . '_' . time() . '.svg';
+            $svgContent = @file_get_contents($file['tmp_name']);
+            $svgCheck = Security::sanitizeSvg((string)$svgContent);
+            if (!$svgCheck['safe']) {
+                return ['success' => false, 'error' => $svgCheck['error']];
+            }
+
+            $safePrefix = preg_replace('/[^a-zA-Z0-9_\-]/', '', $prefix);
+            $newFileName = $safePrefix . '_' . bin2hex(random_bytes(12)) . '.svg';
             $destPath = $this->uploadsDir . '/' . $newFileName;
-            $moved = is_uploaded_file($file['tmp_name']) ? move_uploaded_file($file['tmp_name'], $destPath) : copy($file['tmp_name'], $destPath);
-            if ($moved) {
+
+            $written = @file_put_contents($destPath, $svgCheck['sanitized'], LOCK_EX);
+            if ($written !== false) {
                 return [
                     'success' => true,
                     'path'    => 'assets/uploads/' . $newFileName,
                     'name'    => $newFileName
                 ];
             }
-            return ['success' => false, 'error' => 'Failed to save SVG file.'];
+            return ['success' => false, 'error' => 'Failed to save sanitized SVG file to storage.'];
         }
 
         if (!function_exists('imagewebp')) {
@@ -624,7 +639,8 @@ class DataStore
             return ['success' => false, 'error' => 'Failed to read image content for conversion.'];
         }
 
-        $newFileName = $prefix . '_' . uniqid() . '_' . time() . '.webp';
+        $safePrefix = preg_replace('/[^a-zA-Z0-9_\-]/', '', $prefix);
+        $newFileName = $safePrefix . '_' . bin2hex(random_bytes(12)) . '.webp';
         $destPath = $this->uploadsDir . '/' . $newFileName;
 
         $saved = imagewebp($image, $destPath, $quality);

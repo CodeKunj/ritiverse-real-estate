@@ -1,17 +1,39 @@
 <?php
 /**
  * RiTiVerse Admin Authentication & Session Guard
+ * Production-hardened with session hijacking, fixation, and timeout protection
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once dirname(__DIR__) . '/includes/security.php';
 
 $dataStore = require dirname(__DIR__) . '/includes/data_store.php';
 
+// Session Inactivity Timeout (2 Hours = 7200 seconds)
+define('ADMIN_SESSION_TIMEOUT', 7200);
+
 function isAdminLoggedIn(): bool
 {
-    return isset($_SESSION['ritiverse_admin_id']) && !empty($_SESSION['ritiverse_admin_id']);
+    if (empty($_SESSION['ritiverse_admin_id'])) {
+        return false;
+    }
+
+    // 1. Session Inactivity Timeout Check
+    if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > ADMIN_SESSION_TIMEOUT)) {
+        session_unset();
+        session_destroy();
+        return false;
+    }
+    $_SESSION['last_activity'] = time();
+
+    // 2. User-Agent Fingerprint Check (Anti-Session Hijacking)
+    $currentFp = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown_browser');
+    if (isset($_SESSION['auth_fingerprint']) && $_SESSION['auth_fingerprint'] !== $currentFp) {
+        session_unset();
+        session_destroy();
+        return false;
+    }
+
+    return true;
 }
 
 function requireAuth(): void

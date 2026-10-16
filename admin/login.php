@@ -12,32 +12,52 @@ $site = $siteData['site'] ?? [];
 $logoDark = !empty($site['logo_dark']) ? '/' . ltrim($site['logo_dark'], '/') : '/assets/ritiverse-logo-black.svg';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $csrf = $_POST['csrf_token'] ?? '';
-
-    if (!verifyCsrfToken($csrf)) {
-        $error = 'Security session expired. Please refresh and try again.';
-    } elseif (empty($username) || empty($password)) {
-        $error = 'Please enter both your administrator username and password.';
+    // 1. Rate Limiting Check (Max 5 attempts in 15 minutes)
+    $rateLimit = Security::checkRateLimit('admin_login', 5, 900);
+    if (!$rateLimit['allowed']) {
+        $minutes = ceil($rateLimit['retry_after'] / 60);
+        $error = "Too many failed login attempts. For security, access is temporarily locked. Please try again in {$minutes} minute(s).";
     } else {
-        $admin = $dataStore->getAdminAuth();
-        if (
-            (strtolower($username) === strtolower($admin['username'] ?? '') || strtolower($username) === 'admin') &&
-            password_verify($password, $admin['password_hash'] ?? '')
-        ) {
-            $_SESSION['ritiverse_admin_id'] = $admin['username'];
-            $_SESSION['ritiverse_admin_name'] = $admin['name'] ?? 'Administrator';
+        $username = trim($_POST['username'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $csrf = $_POST['csrf_token'] ?? '';
 
-            // Update last login
-            $admin['last_login'] = date('c');
-            $dataStore->saveAdminAuth($admin);
-
-            setFlash('success', 'Welcome back, ' . htmlspecialchars($admin['name'] ?? 'Administrator') . '.');
-            header('Location: /admin/index.php');
-            exit;
+        if (!verifyCsrfToken($csrf)) {
+            $error = 'Security session expired. Please refresh and try again.';
+        } elseif (empty($username) || empty($password)) {
+            $error = 'Please enter both your administrator username and password.';
         } else {
-            $error = 'Invalid credentials. Please verify your username and password.';
+            $admin = $dataStore->getAdminAuth();
+            if (
+                (strtolower($username) === strtolower($admin['username'] ?? '') || strtolower($username) === 'admin') &&
+                password_verify($password, $admin['password_hash'] ?? '')
+            ) {
+                // Successful Login: Reset rate limit and prevent session fixation
+                Security::resetRateLimit('admin_login');
+                session_regenerate_id(true);
+
+                $_SESSION['ritiverse_admin_id'] = $admin['username'];
+                $_SESSION['ritiverse_admin_name'] = $admin['name'] ?? 'Administrator';
+                $_SESSION['auth_fingerprint'] = md5($_SERVER['HTTP_USER_AGENT'] ?? 'unknown_browser');
+                $_SESSION['last_activity'] = time();
+
+                // Update last login timestamp in database
+                $admin['last_login'] = date('Y-m-d H:i:s');
+                $dataStore->saveAdminAuth($admin);
+
+                setFlash('success', 'Welcome back, ' . htmlspecialchars($admin['name'] ?? 'Administrator') . '.');
+                header('Location: /admin/index.php');
+                exit;
+            } else {
+                // Failed Login: Record attempt in rate limiter
+                Security::hitRateLimit('admin_login', 900);
+                $remaining = max(0, $rateLimit['remaining'] - 1);
+                if ($remaining > 0) {
+                    $error = "Invalid credentials. {$remaining} attempt(s) remaining before temporary lockout.";
+                } else {
+                    $error = 'Invalid credentials. Access is now temporarily locked for 15 minutes.';
+                }
+            }
         }
     }
 }
@@ -109,15 +129,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </button>
         </form>
 
+        <?php if (getenv('APP_ENV') !== 'production' || getenv('APP_DEBUG') === 'true'): ?>
         <div class="login-credentials-box">
             <div style="font-weight:600; color:#9A5803; margin-bottom:0.35rem; display:flex; align-items:center; gap:0.35rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                Default Login Credentials:
+                Development Setup Credentials:
             </div>
             <div>Username: <code>admin@ritiverse.com</code> or <code>admin</code></div>
             <div>Password: <code>admin123456</code></div>
-            <div style="font-size:0.72rem; color:#64748b; margin-top:0.35rem;">(You can change the username & password anytime inside Admin &gt; Password Settings)</div>
+            <div style="font-size:0.72rem; color:#64748b; margin-top:0.35rem;">(Hidden automatically in production environment via .env)</div>
         </div>
+        <?php endif; ?>
 
         <div style="margin-top: 1.5rem; text-align: center;">
             <a href="../index.php" style="color: #64748b; text-decoration: none; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0f172a'" onmouseout="this.style.color='#64748b'">
